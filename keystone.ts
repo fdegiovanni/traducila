@@ -20,8 +20,8 @@ export default withAuth(
   config({
     // the db sets the database provider - we're using sqlite for the fastest startup experience
     db: {
-      provider: 'sqlite',
-      url: 'file:./keystone.db',
+      provider: 'postgresql',
+      url: 'postgres://pyuiytzbteidaq:eaca5dce1bec18e90a7e64a1cb803135f3a5f1bedcf1e21fab774ebf73078fdf@ec2-44-195-240-222.compute-1.amazonaws.com:5432/d4q8adn504me96',
     },
     // This config allows us to set up features of the Admin UI https://keystonejs.com/docs/apis/config#ui
     ui: {
