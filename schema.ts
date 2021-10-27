@@ -56,6 +56,17 @@ export const lists = {
     fields: {
       key: text({ validation: { isRequired: true } }),
       projects: relationship({ ref: 'Project', many: true }),
+      translations: relationship({
+        ref: 'Translation.key',
+        many: true,
+        ui: {
+          displayMode: 'cards',
+          cardFields: ['translate'],
+          inlineEdit: { fields: ['translate', 'language'] },
+          linkToItem: true,
+          inlineCreate: { fields: ['translate', 'language'] },
+        },
+      }),
     },
     ui: {
       labelField: 'key'
@@ -63,7 +74,10 @@ export const lists = {
   }),
   Translation: list({
     fields: {
-      key: relationship({ ref: 'Phrase', many: false }),
+      key: relationship({
+        ref: 'Phrase.translations',
+        many: false,
+      }),
       translate: text({
         validation: {
           isRequired: true
@@ -71,6 +85,9 @@ export const lists = {
         ui: { displayMode: 'textarea' },
       }),
       language: relationship({ ref: 'Language', many: false }),
+    },
+    ui: {
+      labelField: 'translate'
     }
   }),
 

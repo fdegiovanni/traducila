@@ -127,13 +127,7 @@ input StringFilter {
   contains: String
   startsWith: String
   endsWith: String
-  mode: QueryMode
   not: NestedStringFilter
-}
-
-enum QueryMode {
-  default
-  insensitive
 }
 
 input NestedStringFilter {
@@ -316,6 +310,13 @@ type Phrase {
     skip: Int! = 0
   ): [Project!]
   projectsCount(where: ProjectWhereInput! = {}): Int
+  translations(
+    where: TranslationWhereInput! = {}
+    orderBy: [TranslationOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Translation!]
+  translationsCount(where: TranslationWhereInput! = {}): Int
 }
 
 input PhraseWhereUniqueInput {
@@ -329,6 +330,13 @@ input PhraseWhereInput {
   id: IDFilter
   key: StringFilter
   projects: ProjectManyRelationFilter
+  translations: TranslationManyRelationFilter
+}
+
+input TranslationManyRelationFilter {
+  every: TranslationWhereInput
+  some: TranslationWhereInput
+  none: TranslationWhereInput
 }
 
 input PhraseOrderByInput {
@@ -339,6 +347,14 @@ input PhraseOrderByInput {
 input PhraseUpdateInput {
   key: String
   projects: ProjectRelateToManyForUpdateInput
+  translations: TranslationRelateToManyForUpdateInput
+}
+
+input TranslationRelateToManyForUpdateInput {
+  disconnect: [TranslationWhereUniqueInput!]
+  set: [TranslationWhereUniqueInput!]
+  create: [TranslationCreateInput!]
+  connect: [TranslationWhereUniqueInput!]
 }
 
 input PhraseUpdateArgs {
@@ -349,6 +365,12 @@ input PhraseUpdateArgs {
 input PhraseCreateInput {
   key: String
   projects: ProjectRelateToManyForCreateInput
+  translations: TranslationRelateToManyForCreateInput
+}
+
+input TranslationRelateToManyForCreateInput {
+  create: [TranslationCreateInput!]
+  connect: [TranslationWhereUniqueInput!]
 }
 
 type Translation {
@@ -539,6 +561,11 @@ enum KeystoneAdminUIFieldMetaItemViewFieldMode {
   edit
   read
   hidden
+}
+
+enum QueryMode {
+  default
+  insensitive
 }
 
 type KeystoneAdminUISort {
