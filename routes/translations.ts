@@ -45,9 +45,7 @@ export async function getTranslations(req: Request, res: Response) {
 
   let words = new Array();
   const keys = new Array();
-  console.log(phrases)
   phrases.forEach(p => {
-    console.log(project_id+"  "+p.projects[0].id)
     if(p.projects[0].id === project_id && !keys.includes(p.projects[0].id)) {
       keys.push(p.id);
     }

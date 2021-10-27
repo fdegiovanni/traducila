@@ -19,10 +19,17 @@ export default withAuth(
   // Using the config function helps typescript guide you to the available options.
   config({
     // the db sets the database provider - we're using sqlite for the fastest startup experience
+    /**
+     * 
+     */
     db: {
       provider: 'postgresql',
       url: 'postgres://pyuiytzbteidaq:eaca5dce1bec18e90a7e64a1cb803135f3a5f1bedcf1e21fab774ebf73078fdf@ec2-44-195-240-222.compute-1.amazonaws.com:5432/d4q8adn504me96',
     },
+    // db: {
+    //   provider: 'sqlite',
+    //   url: 'file:./keystone.db',
+    // },
     // This config allows us to set up features of the Admin UI https://keystonejs.com/docs/apis/config#ui
     ui: {
       // For our starter, we check that someone has session data before letting them see the Admin UI.
@@ -40,6 +47,9 @@ export default withAuth(
       */
       extendExpressApp: (app, createContext) => {
         app.use('/rest', async (req, res, next) => {
+          res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
           (req as any).context = await createContext(req, res);
           next();
         });
