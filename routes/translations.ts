@@ -52,7 +52,7 @@ export async function getTranslations(req: Request, res: Response) {
   });
 
   translations.forEach(t => {
-    if (keys.includes(t.key.id) && t.language.region_code === lang) {
+    if (t.key?.id && keys.includes(t.key.id) && t.language.region_code === lang) {
       const word = {
         key: t.key.key,
         translate: t.translate,
