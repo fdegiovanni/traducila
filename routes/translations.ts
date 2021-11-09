@@ -46,7 +46,7 @@ export async function getTranslations(req: Request, res: Response) {
   let words = new Array();
   const keys = new Array();
   phrases.forEach(p => {
-    if(p.projects[0].id === project_id && !keys.includes(p.projects[0].id)) {
+    if(p.projects.length > 0 && p.projects[0].id === project_id && !keys.includes(p.projects[0].id)) {
       keys.push(p.id);
     }
   });
